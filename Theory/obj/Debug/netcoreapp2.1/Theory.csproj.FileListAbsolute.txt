@@ -1,0 +1,14 @@
+C:\Users\USER\source\repos\Theory\Theory\bin\Debug\netcoreapp2.1\Theory.deps.json
+C:\Users\USER\source\repos\Theory\Theory\bin\Debug\netcoreapp2.1\Theory.runtimeconfig.json
+C:\Users\USER\source\repos\Theory\Theory\bin\Debug\netcoreapp2.1\Theory.runtimeconfig.dev.json
+C:\Users\USER\source\repos\Theory\Theory\bin\Debug\netcoreapp2.1\Theory.dll
+C:\Users\USER\source\repos\Theory\Theory\bin\Debug\netcoreapp2.1\Theory.pdb
+C:\Users\USER\source\repos\Theory\Theory\obj\Debug\netcoreapp2.1\Theory.csprojAssemblyReference.cache
+C:\Users\USER\source\repos\Theory\Theory\obj\Debug\netcoreapp2.1\Theory.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\Theory\Theory\obj\Debug\netcoreapp2.1\Theory.RazorAssemblyInfo.cache
+C:\Users\USER\source\repos\Theory\Theory\obj\Debug\netcoreapp2.1\Theory.RazorAssemblyInfo.cs
+C:\Users\USER\source\repos\Theory\Theory\obj\Debug\netcoreapp2.1\Theory.AssemblyInfoInputs.cache
+C:\Users\USER\source\repos\Theory\Theory\obj\Debug\netcoreapp2.1\Theory.AssemblyInfo.cs
+C:\Users\USER\source\repos\Theory\Theory\obj\Debug\netcoreapp2.1\Theory.RazorTargetAssemblyInfo.cache
+C:\Users\USER\source\repos\Theory\Theory\obj\Debug\netcoreapp2.1\Theory.dll
+C:\Users\USER\source\repos\Theory\Theory\obj\Debug\netcoreapp2.1\Theory.pdb
