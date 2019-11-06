@@ -113,10 +113,10 @@ namespace Theory.Controllers
 
             Answer saveAnswer = new Answer
             {
-                Ans = count.ToString(),
-                MyQuestionsId = 2,  // _context.MyQuestions.Where(q => q.Id == 2).FirstOrDefault().Id
+                Ans = count,
+                MyQuestionsId = studentAnswers.MyQuestionsId,  // _context.MyQuestions.Where(q => q.Id == 2).FirstOrDefault().Id
                 StudentAnswersId = studentAnswers.id,
-                StudentId = 1
+                StudentId = studentAnswers.UserId
             };
 
             _context.Answer.Add(saveAnswer);

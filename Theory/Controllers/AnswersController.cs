@@ -12,63 +12,68 @@ namespace Theory.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class QuestionsController : ControllerBase
+    public class AnswersController : ControllerBase
     {
         private readonly TheoryContext _context;
 
-        public QuestionsController(TheoryContext context)
+        public AnswersController(TheoryContext context)
         {
             _context = context;
         }
 
-        // GET: api/Questions
+        // GET: api/Answers
         [HttpGet]
-        [Authorize(Roles = "Lecturer")]
-
-        public IEnumerable<Questions> GetQuestions()
+        public IEnumerable<Answer> GetAnswer()
         {
-            return _context.Questions;
+            return _context.Answer;
         }
 
-        // GET: api/Questions/5
+        // GET: api/Answers/5
         [HttpGet("{id}")]
-        [Authorize(Roles = "Lecturer, Student")]
-
-
-        public async Task<IActionResult> GetQuestions([FromRoute] int id)
+        //[Authorize(Roles = "Lecturer")]
+        public async Task<IActionResult> GetAnswer([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var questions = await _context.Questions.FindAsync(id);
+            var answer = await _context.Answer.FindAsync(id);
 
-            if (questions == null)
+            var allOfThem = _context.Answer.Where(w => w.StudentId == answer.StudentId);
+            var totalSum = allOfThem.Sum(x => (x.Ans));
+            
+
+
+
+
+            if (answer == null)
             {
                 return NotFound();
             }
 
-            return Ok(questions);
+            //return Ok(answer.StudentAnswersId);
+
+            return Ok(allOfThem);
+
+            
         }
 
-        // PUT: api/Questions/5
+        // PUT: api/Answers/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "Lecturer")]
-
-        public async Task<IActionResult> PutQuestions([FromRoute] int id, [FromBody] Questions questions)
+        public async Task<IActionResult> PutAnswer([FromRoute] int id, [FromBody] Answer answer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != questions.Id)
+            if (id != answer.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(questions).State = EntityState.Modified;
+            _context.Entry(answer).State = EntityState.Modified;
 
             try
             {
@@ -76,7 +81,7 @@ namespace Theory.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!QuestionsExists(id))
+                if (!AnswerExists(id))
                 {
                     return NotFound();
                 }
@@ -89,47 +94,45 @@ namespace Theory.Controllers
             return NoContent();
         }
 
-        // POST: api/Questions
+        // POST: api/Answers
         [HttpPost]
-        [Authorize(Roles = "Lecturer")]
-
-        public async Task<IActionResult> PostQuestions([FromBody] Questions questions)
+        public async Task<IActionResult> PostAnswer([FromBody] Answer answer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Questions.Add(questions);
+            _context.Answer.Add(answer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetQuestions", new { id = questions.Id }, questions);
+            return CreatedAtAction("GetAnswer", new { id = answer.Id }, answer);
         }
 
-        // DELETE: api/Questions/5
+        // DELETE: api/Answers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteQuestions([FromRoute] int id)
+        public async Task<IActionResult> DeleteAnswer([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var questions = await _context.Questions.FindAsync(id);
-            if (questions == null)
+            var answer = await _context.Answer.FindAsync(id);
+            if (answer == null)
             {
                 return NotFound();
             }
 
-            _context.Questions.Remove(questions);
+            _context.Answer.Remove(answer);
             await _context.SaveChangesAsync();
 
-            return Ok(questions);
+            return Ok(answer);
         }
 
-        private bool QuestionsExists(int id)
+        private bool AnswerExists(int id)
         {
-            return _context.Questions.Any(e => e.Id == id);
+            return _context.Answer.Any(e => e.Id == id);
         }
     }
 }

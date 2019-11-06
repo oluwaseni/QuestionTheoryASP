@@ -34,8 +34,34 @@ namespace Theory.Controllers
             return new
             {
                 user.UserName,
-                user.matric
+                user.matric,
+                user.Id
             };
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles="Lecturer")]
+        [Route("ForLecturer")]
+        public string GetForLecturer()
+        {
+            return "Web for Lecturer";
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Student")]
+        [Route("ForStudent")]
+        public string GetForStudent()
+        {
+            return "Web for Student";
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Lecturer, Student")]
+        [Route("ForLecturerOrStudent")]
+        public string GetForLecturerOrStudent()
+        {
+            return "Web for Lecturer or Student";
         }
 
 

@@ -13,6 +13,6 @@ namespace Theory.Model
         public string Matric { get; set; }
         public string Answers { get; set; }
         public int MyQuestionsId { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
     }
 }

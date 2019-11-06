@@ -19,13 +19,22 @@ namespace Theory.Controllers
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
+        private readonly TheoryContext _context;
 
 
-        public ApplicationUserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public ApplicationUserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, TheoryContext contex)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = contex;
 
+        }
+
+        [HttpGet]
+        [Route("Users")]
+        public IEnumerable<ApplicationUser> GetUsers()
+        {
+            return _context.ApplicationUsers;
         }
 
         [HttpPost]
@@ -34,6 +43,8 @@ namespace Theory.Controllers
 
         public async Task<object> PostApplicationUser(ApplicationUserModel model)
         {
+
+            model.Roles = "Student";
             var applicationUser = new ApplicationUser()
             {
                 UserName = model.UserName,
@@ -43,6 +54,7 @@ namespace Theory.Controllers
             try
             {
                 var result = await _userManager.CreateAsync(applicationUser, model.Password);
+                await _userManager.AddToRoleAsync(applicationUser, model.Roles);
 
                 return Ok(result);
             }
@@ -61,15 +73,20 @@ namespace Theory.Controllers
 
         public async Task<IActionResult> Login(LoginModel model)
         {
-            var user = await _userManager.FindByNameAsync(model.Matric);
+            var user = await _userManager.FindByNameAsync(model.UserName);
             if(user !=null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
+
+                //Get roles assigned
+                var role = await _userManager.GetRolesAsync(user);
+                IdentityOptions _options = new IdentityOptions();
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim("UserID", user.Id.ToString())
+                        new Claim("UserID", user.Id.ToString()),
+                        new Claim(_options.ClaimsIdentity.RoleClaimType, role.FirstOrDefault())
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("0123456789012345")), SecurityAlgorithms.HmacSha256Signature)

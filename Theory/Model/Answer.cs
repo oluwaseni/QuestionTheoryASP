@@ -11,9 +11,9 @@ namespace Theory.Model
 
         [Key]
         public int Id { get; set; }
-        public string Ans { get; set; }
+        public int Ans { get; set; }
         public int MyQuestionsId { get; set; }
         public int StudentAnswersId { get; set; }
-        public int StudentId { get; set; }
+        public string StudentId { get; set; }
     }
 }
