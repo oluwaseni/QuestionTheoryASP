@@ -41,6 +41,9 @@ namespace Theory.Controllers
             var answer = await _context.Answer.FindAsync(id);
 
             var allOfThem = _context.Answer.Where(w => w.StudentId == answer.StudentId);
+            var UserMatric = _context.Users.Where(u => u.Id == answer.StudentId);
+
+            //var name = _context.Users.Where(n => n.Id == "56aa14ca-4ad3-481a-ac15-f8727dc25ae4");
             var totalSum = allOfThem.Sum(x => (x.Ans));
             
 

@@ -13,7 +13,7 @@ namespace Theory.Model
         public int Id { get; set; }
         [Column(TypeName = "nvarchar(500)")]
         public string Question { get; set; }
-        [Column(TypeName = "nvarchar(300)")]
+        [Column(TypeName = "nvarchar(500)")]
         public string ExpectedAnswers { get; set; }
     }
 }

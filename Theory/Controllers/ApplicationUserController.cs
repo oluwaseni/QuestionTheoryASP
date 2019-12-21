@@ -67,6 +67,37 @@ namespace Theory.Controllers
 
         }
 
+
+        [HttpPost]
+        [Route("RegisterLecturer")]
+        //POST : /api/ApplicationUser/Register
+
+        public async Task<object> PostApplicationLecturer(ApplicationUserModel model)
+        {
+
+            model.Roles = "Lecturer";
+            var applicationUser = new ApplicationUser()
+            {
+                UserName = model.UserName,
+                matric = model.Matric
+            };
+
+            try
+            {
+                var result = await _userManager.CreateAsync(applicationUser, model.Password);
+                await _userManager.AddToRoleAsync(applicationUser, model.Roles);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+
+            }
+
+        }
+
         [HttpPost]
         [Route("Login")]
         //Post : /api/ApplicationUser/Login

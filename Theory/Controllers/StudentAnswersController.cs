@@ -95,25 +95,32 @@ namespace Theory.Controllers
             //Getting into array before the algorithm
 
             string[] myAnswer = studentAnswers.Answers.Split(" ".ToCharArray());
-            var dataExpected = _context.Questions.Where(q => q.Id == 1).FirstOrDefault();
+           
+            var dataExpected = _context.Questions.Where(q => q.Id == studentAnswers.MyQuestionsId).FirstOrDefault();
 
             var quest = dataExpected.ExpectedAnswers.Split(" ".ToCharArray());
 
-
+            int all = 0;
             int count = 0;
+
             foreach (string rem in myAnswer)
             {
-
+                all += 1;
                 if (quest.Contains(rem))
                 {
                     count += 1;
                 }
 
+
             }
+            int perc = (int)Math.Round((count * 12.0) / all);
+
+
 
             Answer saveAnswer = new Answer
             {
-                Ans = count,
+
+                Ans = perc,
                 MyQuestionsId = studentAnswers.MyQuestionsId,  // _context.MyQuestions.Where(q => q.Id == 2).FirstOrDefault().Id
                 StudentAnswersId = studentAnswers.id,
                 StudentId = studentAnswers.UserId

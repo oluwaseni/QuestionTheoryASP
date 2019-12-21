@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Theory.Model;
 
 namespace Theory.Migrations
 {
     [DbContext(typeof(TheoryContext))]
-    partial class TheoryContextModelSnapshot : ModelSnapshot
+    [Migration("20191110194734_LiverpoolWon")]
+    partial class LiverpoolWon
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,7 +217,7 @@ namespace Theory.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ExpectedAnswers")
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Question")
                         .HasColumnType("nvarchar(500)");
